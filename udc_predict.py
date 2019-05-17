@@ -28,7 +28,8 @@ vp = tf.contrib.learn.preprocessing.VocabularyProcessor.restore(
 
 # Load your own data here
 INPUT_CONTEXT = "Example context"
-POTENTIAL_RESPONSES = ["Response 1", "Response 2"]
+#POTENTIAL_RESPONSES = ["Response 1", "Response 2"]
+POTENTIAL_RESPONSES=["Response 1", "Response 2","Response 3", "Response 4","Response 5", "Response 6", "Response 7", "Response 8","Response 9", "Response 10"]
 
 def get_features(context, utterance):
   context_matrix = np.array(list(vp.transform([context])))
@@ -55,4 +56,7 @@ if __name__ == "__main__":
   print("Context: {}".format(INPUT_CONTEXT))
   for r in POTENTIAL_RESPONSES:
     prob = estimator.predict(input_fn=lambda: get_features(INPUT_CONTEXT, r))
-    print("{}: {:g}".format(r, prob[0,0]))
+    # fixed based on issue comment in githubs
+    # https://github.com/dennybritz/chatbot-retrieval/issues/60
+    #print("{}: {:g}".format(r, prob[0,0]))
+    print("{}: {:g}".format(r, next(prob)[0]))
